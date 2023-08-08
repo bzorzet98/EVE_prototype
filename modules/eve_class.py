@@ -6,7 +6,8 @@ from time import time, sleep
 from uuid import uuid4
 
 
-class EVE_chat:
+class EVE_chat  :
+    
     def __init__(self,prompt_to_default_system_file = 'system_default.txt', 
                  user_profile_file = 'user_profile.txt',
                  prompt_to_instantiate_new_kb_file = 'system_instantiate_new_kb.txt',
@@ -148,7 +149,6 @@ class EVE_chat:
             if len(all_messages) > self.n_messages_to_update:
                 all_messages.pop(0)
             main_scratchpad = '\n\n'.join(all_messages).strip()
-
 
             kb = 'No KB articles yet'
             if self.collection.count() > 0:
