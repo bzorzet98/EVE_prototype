@@ -1,4 +1,4 @@
-from modules.users import *
+from users import *
 
 if __name__ == "__main__":
     path = os.getcwd()

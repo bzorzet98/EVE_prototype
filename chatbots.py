@@ -3,7 +3,89 @@ from chromadb.config import Settings
 import openai
 import yaml
 from time import time, sleep
+import datetime
+
 from uuid import uuid4
+
+import os
+
+from config import CONVERSATION_EXAMPLES_PATH , OPENAI_API_KEY , PROMPTS_PATH, DICT_STATES, PREDEFINED_MESSAGES
+
+# Import user manager from users.py
+from users import UserManager
+
+class Chatbot():
+    def __init__(self,):
+        # User manager
+        self.user_manager = UserManager()
+        self.username = None
+        os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+        
+        self.state = 0
+        self.last_session_number = 0
+        self.last_session_date = None
+
+        self.current_session_number = None
+        self.current_session_date = None
+
+        self.initialize_chatbot()
+        pass
+
+
+    def initialize_chatbot(self,):
+        # Configure User Manager
+        self.user_manager.identify_user()
+        self.username = self.user_manager.username
+        # Identify the number of sessions and the date of the last session
+        self.last_session_number, self.last_session_date = self.user_manager.identify_last_sessions_number()
+
+        self.current_session_number = self.last_session_number + 1
+        self.current_session_date = datetime.datetime.now().strftime("%H:%M-%Y/%m/%d")
+        # Identify the state
+        if self.last_session_number == 0:
+            self.state = 0
+        else:
+            self.state = 1
+
+        # Message of welcome
+        self.message_of_welcome()
+
+        # 
+        pass
+
+    def finalize_chatbot(self,):
+        
+        self.user_manager.modify_last_sessions_number(self.current_session_number, self.current_session_date)
+        
+        pass
+
+    def message_of_welcome(self,):
+        if self.state == 0:
+            # Read the message of welcome from the file
+            with open(PREDEFINED_MESSAGES + "/welcome_message_new_user.txt", 'r') as file:
+                # Replace <<<USERNAME>>> in txt for self.username
+                message = file.read().replace("<<<USERNAME>>>", self.username)
+                # Print the message
+                print("EVE: " + message)
+        else: 
+            # Read the message of welcome from the file
+            with open(PREDEFINED_MESSAGES + "/welcome_message_old_user.txt", 'r') as file:
+                # Replace <<<USERNAME>>>,<<<SESSION>>> and <<<LAST_SESSION_DATE>>> in txt for self.username, self.last_session_number and self.last_session_date
+                last_session_date = self.last_session_date[6:]
+                message = file.read().replace("<<<USERNAME>>>", self.username).replace("<<<SESSION>>>", str(self.last_session_number)).replace("<<<LAST_SESSION_DATE>>>", last_session_date)
+                # Add EVE: to the beginning of the message and print the message
+                print("EVE: " + message)
+
+
+
+        
+
+
+
+
+
+
+
 
 
 class EVE_chat  :

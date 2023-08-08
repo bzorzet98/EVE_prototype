@@ -1,4 +1,4 @@
-from modules.users import *
+from users import *
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI

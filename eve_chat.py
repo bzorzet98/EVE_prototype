@@ -1,4 +1,4 @@
-from modules.eve_class import *
+from chatbots import *
 import os
 
 current_directory = os.getcwd()
