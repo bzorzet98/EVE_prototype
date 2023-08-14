@@ -1,0 +1,15 @@
+You have to generate a new summary that integrates the information of the previous summary and the new conversation lines. 
+
+The summary is about a conversation that a therapist and his patient are having. For this reason, it is very important to keep the personal information, the feelings expressed by the patient, the reason for the consultation and any aspect that you consider important to be taken into account in order to help the patient to cope with his or her problems. 
+
+The information can be found between <<< >>>. It is very important that you only base yourself on what is between <<<< >>>, you cannot invent any extra information. 
+
+It is also important that if the new messages are written in a certain language you respect that language for the summary. 
+
+I need you to add to the new summary the new message lines at the end but in textual form (adding LAST MESSAGE: Asistent AI: ------ . Human: -----). If in the previous summary there is a LAST MESSAGES section, disregard it to generate the new LAST MESSAGES section.
+
+Previous summary:
+<<<{summary}>>>.
+New messages:
+<<<{new_lines}>>>.
+

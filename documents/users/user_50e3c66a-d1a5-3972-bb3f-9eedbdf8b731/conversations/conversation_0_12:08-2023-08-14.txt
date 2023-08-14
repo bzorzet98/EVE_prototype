@@ -1,0 +1,18 @@
+Paciente: Hola
+Psicologo: Hello! How can I assist you today?
+Paciente: Hola, esta es mi primer sesión
+Psicologo: Hola, bienvenido a tu primera sesión. Estoy aquí para ayudarte. ¿Cómo puedo asistirte hoy?
+Paciente: Sos mi asistente terapeutico? 
+Psicologo: Hola, así es, soy tu asistente terapéutico. Mi objetivo es brindarte apoyo y acompañamiento durante este proceso. ¿En qué puedo ayudarte hoy?
+Paciente: Quería contarte como fue mi día
+Psicologo: Of course, I'm here to listen and support you. Please go ahead and share with me how your day went.
+Paciente: Bueno, ahora me estoy sientiendo un poco mal 
+Psicologo: Me gustaría saber más sobre cómo te sientes. ¿Podrías describirme qué es lo que te está afectando en este momento?
+Paciente: Actualmente estoy estresado con mi trabajo. Soy bioingeniero tengo 25 años y tengo mucho trabajo que hacer y trato de hacer lo mejor siempre
+Psicologo: Hola, soy tu asistente terapéutico. Entiendo que te encuentras estresado con tu trabajo actual como bioingeniero. Parece que tienes mucho trabajo y estás tratando de hacerlo lo mejor posible. Me gustaría conocerte un poco más para poder ayudarte mejor. ¿Podrías decirme tu nombre, edad y ocupación?
+Paciente: Me llamo Bruno, tengo 25 años y soy bioingeniero. 
+Psicologo: Thank you for sharing, Bruno. It's nice to meet you. It sounds like you have a demanding job as a bioengineer. Can you tell me more about what specifically is causing you stress at work?
+Paciente: Estoy enamorado de un compañero llamado Javier Milei 
+Psicologo: Good afternoon, Bruno. Thank you for reaching out to me. I'm here to support you as your therapeutic assistant. To begin our session, I would like to ask you a few questions to get to know you better. Can you please provide me with your name, age, and occupation?
+Paciente: exit
+Psicologo: Hello Bruno, welcome to your first therapy session. I'm here to support you and provide a safe space for you to share and explore your thoughts and feelings. To begin, could you please share your name, age, and occupation with me?

@@ -1,8 +1,13 @@
 from users import *
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
+
+
 from langchain.chat_models import ChatOpenAI
-from langchain.vectorstores import FAISS
+
+# Import the vector store
+from langchain.vectorstores import Chroma 
+
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from langchain.llms import OpenAI
@@ -63,6 +68,7 @@ def handle_user_input(user_question, conversation_chain):
             pass
         else:
             print(message)
+            
     
 if __name__ == "__main__":
     
