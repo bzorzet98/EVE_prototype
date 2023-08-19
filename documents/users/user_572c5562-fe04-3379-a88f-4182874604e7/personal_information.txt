@@ -1,6 +1,0 @@
-$
-NAME: BRUNO ZORZET
-AGE: 25
-OCCUPATION: DOCTORAL STUDENT IN ARTIFICIAL INTELLIGENCE
-SOCIAL RELATIONS: Has a girlfriend named Noelia, planning a future together.
-$

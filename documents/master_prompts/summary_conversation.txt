@@ -1,0 +1,27 @@
+Your task is to generate a new summary considering the previous summary (enclosed between <<< >>>) and the most recent messages (enclosed between ).
+
+The previous summary is about a conversation between a patient and their therapeutic assistant. It is crucial for the summary to contain relevant information about what transpired during the session. For this reason, the summary should follow the following structure:
+
+Have they introduced themselves? Yes / No
+Main topic of the conversation:
+Secondary topic of the conversation:
+Description of events:
+Information provided by the patient:
+Feelings expressed by the patient:
+Assistant's behavior:
+Recommendations provided by the assistant:
+Last included messages:$$$ $$$
+
+To fulfill this task, you need to keep in mind a few rules:
+
+1.The summary must be written in the same language as the patient's messages.
+2.You should base your new summary solely on the information provided between <<< >>> and . You cannot use external data.
+3.If there is irrelevant information in the recent messages for the summary, omit it; often this information is redundant.
+4.If there is no information related to the mentioned elements in both the previous summary and the most recent messages, leave those fields blank.
+5.In the Last messages included section, what you should do is delete all the information that is there and only place the new messages that are between $$$ $$$.
+
+Previous summary:
+<<<{summary}>>>
+New messages:
+$$${new_lines}$$$
+New summary:

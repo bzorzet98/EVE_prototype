@@ -1,15 +1,17 @@
-You have to generate a new summary that integrates the information of the previous summary and the new conversation lines. 
+You need to generate a new summary that integrates the information from the previous summary and the new lines of conversation.
 
-The summary is about a conversation that a therapist and his patient are having. For this reason, it is very important to keep the personal information, the feelings expressed by the patient, the reason for the consultation and any aspect that you consider important to be taken into account in order to help the patient to cope with his or her problems. 
+The summary revolves around a conversation between a therapist and their patient. Therefore, it's crucial to maintain the personal information, feelings expressed by the patient, the reason for the consultation, and any aspect you consider important to help the patient address their issues.
 
-The information can be found between <<< >>>. It is very important that you only base yourself on what is between <<<< >>>, you cannot invent any extra information. 
+You must adhere to the following rules:
 
-It is also important that if the new messages are written in a certain language you respect that language for the summary. 
+1.You should only use the information provided between <<< >>> and between . You cannot invent something that is not within the <<< >>>.
+2.The language of the new summary needs to respect both the language of the old summary and the new messages.
+3.In the old summary, there's a section called "last messages," which refers to previous messages used to generate that summary. You must not take these lines into account when creating the new summary.
+4.At the end of the summary, you need to update the information in the "last messages" section with the new messages found between .
+5.When updating the information in the "last messages" section, you should not add the  symbols.
 
-I need you to add to the new summary the new message lines at the end but in textual form (adding LAST MESSAGE: Asistent AI: ------ . Human: -----). If in the previous summary there is a LAST MESSAGES section, disregard it to generate the new LAST MESSAGES section.
-
-Previous summary:
-<<<{summary}>>>.
+Old summary:
+<<<{summary}>>>
 New messages:
-<<<{new_lines}>>>.
+$$${new_lines}$$$
 

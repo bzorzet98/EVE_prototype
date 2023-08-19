@@ -1,0 +1,10 @@
+Depending on the new messages you will receive between <<< >>>, you must update the previous information between $$$ $$$. This information is personal information about a patient and their therapist.
+
+Previous information:
+$$$
+{previous_information}
+$$$
+New messages:
+<<<{new_messages}>>>
+
+In case the information is not found, you must place UNKNOW.

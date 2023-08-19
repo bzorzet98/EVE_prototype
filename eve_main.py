@@ -8,12 +8,14 @@ if __name__ == "__main__":
     while continue_chatting:
 
         text = input('\n\nUSER: ')
-
-        eve.chat(text)
-        # Finalize chatbot if user types 'exit'
+        
         if text.lower() == "exit":
             continue_chatting = False
             eve.finalize_chatbot()
+        else:
+            eve.chat(text)
+        # Finalize chatbot if user types 'exit'
+        
         
         
     a = 20

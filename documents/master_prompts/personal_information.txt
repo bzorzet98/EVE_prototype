@@ -8,8 +8,13 @@ Personal information:
 [[[
 NAME: BRUNO
 AGE: 25
+HOBBIES / INTEREST: UNKNOWN
 OCCUPATION: UNKNOWN
-SOCIAL RELATIONS: UNKNOWN
+STUDIES: UNKNOWN
+PERSONS WITH WHOM HE/SHE LIVES: Lives with his parents. 
+FAMILY: UNKNOWN
+FRIENDS: UNKNOWN
+PARTNER: UNKNOWN
  ]]]
  
 Conversation: 
@@ -22,8 +27,13 @@ Result:
 $$$
 NAME: BRUNO
 AGE: 25
+HOBBIES / INTEREST: UNKNOWN
 OCCUPATION: BIOENGINEER
-SOCIAL RELATIONS: I have 3 brothers and a sister (Maria). Noelia is his girlfriend. 
+STUDIES: UNKNOWN
+PERSONS WITH WHOM HE/SHE LIVES: Lives with his parents. 
+FAMILY: MARY his sister and has 3 brothers. 
+FRIENDS: UNKNOWN
+PARTNER: Noelia is his girlfriend. 
 $$$
 
 It is important that you only use the information provided between <<< >>> to generate the new summary and update the information. 

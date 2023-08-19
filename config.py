@@ -1,5 +1,8 @@
 import os
 
+# Configuration of the models
+TEMPERATURE = 0.5
+
 OPENAI_API_KEY = "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"
 
 CHUNK_SIZE = 1000
@@ -26,5 +29,14 @@ PERSONAL_INFORMATION_TEMPLATE_PATH = os.getcwd() + "/" + "documents" + "/" + "te
 PROMPTS_PATH = os.getcwd() + "/" + "documents" + "/" + "master_prompts"
 FIRST_SESSION_PROMPT_PATH = PROMPTS_PATH + "/" + "first_session.txt"
 FIRST_SESSION_SUMMARY_PROMPT_PATH = PROMPTS_PATH + "/" + "first_session_summary.txt"
+FIRST_SESSION_MASTER_PROMPT_PATH = PROMPTS_PATH + "/" + "first_session_master.txt"
+
+SUMMARY_CONVERSATION_PROMPT_PATH = PROMPTS_PATH + "/" + "summary_conversation.txt"
+SUMMARY_CONVERSATION_FINISH_SESSION_PROMPT_PATH = PROMPTS_PATH + "/" + "summary_conversation_finish_session.txt"
+
 SESSION_FINISHED_SUMMARY_PROMPT_PATH = PROMPTS_PATH + "/" + "session_summary.txt"
+
 PERSONAL_INFORMATION_PROMPT_PATH = PROMPTS_PATH + "/" + "personal_information.txt"
+
+UPDATE_PERSONAL_INFORMATION_PROMPT_PATH = PROMPTS_PATH + "/" + "update_personal_information.txt"
+UPDATE_PERSONAL_INFORMATION_FINISH_SESSION_PROMPT_PATH = PROMPTS_PATH + "/" + "update_personal_information_finish_session.txt"

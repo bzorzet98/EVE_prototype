@@ -1,7 +1,0 @@
-- Name: Bruno
-- Profession: Bioengineer
-- Interests: Not specified
-- Beliefs: Not specified
-- Plans: Not specified
-- Preference: Expresses feelings and concerns through conversation
-- Current state: Feeling happy and comfortable with job workload

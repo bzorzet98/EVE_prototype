@@ -27,9 +27,9 @@ def convert_messages_in_txt(conversation_messages):
     conversation_txt = ""
     for message in conversation_messages:
         if message.__class__.__name__ == "AIMessage":
-            conversation_txt += 'Psicologo: ' + message.content + '\n'
+            conversation_txt += 'Terapeutic assistant: ' + message.content + '\n'
         elif message.__class__.__name__ == "HumanMessage":
-            conversation_txt += 'Paciente: ' + message.content + '\n'
+            conversation_txt += 'Patient: ' + message.content + '\n'
     return conversation_txt
 
 def save_as_txt(path, content):
