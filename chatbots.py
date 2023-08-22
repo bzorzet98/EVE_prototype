@@ -59,12 +59,16 @@ class Chatbot():
         self.embedding = OpenAIEmbeddings()
         # Initialize chromadb 
         self.vectorstore_conversation = Chroma(embedding_function=self.embedding)
+        
         # Initialize other vectorstore
         
         # Initialize the memory
         self.memory = ChatMessageHistory()
         
         # Initialize the summarizer of current conversation
+        # self.summarizer = LLMChain(llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature = 0.1), 
+        #                                 verbose = False,prompt=PromptTemplate.from_template("empty {empty}"))
+        
         self.summarizer = ConversationSummaryMemory(llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature = 0.1),
                                                     ai_prefix='Terapeutic assistant', human_prefix = 'Patient')
         
@@ -102,7 +106,7 @@ class Chatbot():
         self.__update_state()
         
         # Load the data to vector database
-        #self.__load_data_to_vector_database()
+        self.__load_data_to_vector_database()
         
         # Message of welcome
         self.message_of_welcome()
@@ -116,6 +120,9 @@ class Chatbot():
         pass
     
     def chat(self, patient_message):
+        # Obtain last messages
+        last_messages = self.__obtain_n_last_messages_string(n_last_messages=2)
+        
         # Add patient message to memory
         self.__add_user_messages_in_memory(patient_message)
 
@@ -125,10 +132,21 @@ class Chatbot():
         # Update current personal information
         self.__update_personal_information(patient_message)
         
+        # Obtain similarity search
+        similar_conversations = self.__similarity_search(patient_message)
+        
         # Predict AI assistant message
-        AI_asistant_message = self.conversation.predict(personal_information=self.personal_information, 
-                                                previous_summary= self.summarizer.buffer, 
-                                                patient_message = patient_message)
+        if self.state == 0:
+            AI_asistant_message = self.conversation.predict(personal_information=self.personal_information, 
+                                                    last_messages =  last_messages, 
+                                                    actual_session_summary = self.summarizer.buffer,
+                                                    similar_conversation = similar_conversations,
+                                                    patient_message = patient_message)
+        elif self.state == 1:
+            AI_asistant_message = self.conversation.predict(personal_information=self.personal_information, 
+                                                    summary_previuos_session= self.summary_previous_session, 
+                                                    summary_conversation = self.summarizer.buffer,
+                                                    patient_message = patient_message)
 
         # Add AI assistant message to memory
         self.__add_ai_messages_in_memory(AI_asistant_message)
@@ -160,47 +178,36 @@ class Chatbot():
 
     def __config_conversation_chatbot(self,):
         if self.state == 0:
-            # Config summarizer prompt
-            self.summarizer.prompt = self.summary_conversation_prompt
-            # Config personal information updater prompt
-            self.personal_information_updater.prompt = self.update_personal_information_prompt
             # Config conversation prompt
             self.conversation.prompt = self.prompt_first_session_master
-            # Config summarizer finish session prompt
-            self.summarizer_finish_session.prompt = self.summary_conversation_finish_session_prompt
             
-    def __load_prompts(self,):
-        # # Load first session prompts
-        # first_session_text = read_txt_files(FIRST_SESSION_PROMPT_PATH)
-        # self.first_session_prompt = PromptTemplate(input_variables=['history', 'input'], output_parser=None, partial_variables={}, 
-        #                        template=first_session_text, template_format='f-string', validate_template=True)
+        elif self.state == 1 :
+            # Config conversation prompt
+            self.conversation.prompt = self.prompt_sessions_master
         
-        # # Load first session summary prompt
-        # first_session_summary_text = read_txt_files(FIRST_SESSION_SUMMARY_PROMPT_PATH)
-        # self.first_session_summary_prompt = PromptTemplate(input_variables=['summary', 'new_lines'], output_parser=None, partial_variables={}, 
-        #                                               template=first_session_summary_text, template_format='f-string', validate_template=True)
-
-        # # Load summary of last sessions
-        # last_session_summary_text = read_txt_files(SESSION_FINISHED_SUMMARY_PROMPT_PATH)
-        # self.last_session_summary_prompt = PromptTemplate(input_variables=["complete_conversation"],output_parser=None, 
-        #                                                   partial_variables={},
-        #                                                   template=last_session_summary_text, 
-        #                                                   template_format='f-string', 
-        #                                                   validate_template=True)
-        # # Load prompts to update the user profile
-        # personal_information_prompt_txt = read_txt_files(PERSONAL_INFORMATION_PROMPT_PATH)
-        # self.personal_information_prompt = PromptTemplate(input_variables=["previous_personal_information", "complete_conversation"],
-        #                                                   output_parser=None, 
-        #                                                   partial_variables={},
-        #                                                   template=personal_information_prompt_txt, 
-        #                                                   template_format='f-string', 
-        #                                                   validate_template=True)
+        # Config summarizer prompt
+        self.summarizer.prompt = self.summary_conversation_prompt
+        # Config personal information updater prompt
+        self.personal_information_updater.prompt = self.update_personal_information_prompt
+        # Config summarizer finish session prompt
+        self.summarizer_finish_session.prompt = self.summary_conversation_finish_session_prompt
+                
+    def __load_prompts(self,):
         
         # Load prompts for first session master
         template_first_session_master = read_txt_files(FIRST_SESSION_MASTER_PROMPT_PATH)
-        self.prompt_first_session_master = PromptTemplate(input_variables=['personal_information', 'previous_summary','patient_message'], 
+        self.prompt_first_session_master = PromptTemplate(input_variables=['personal_information', 'last_messages','actual_session_summary','similar_conversation','patient_message'], 
                                                     output_parser=None, partial_variables={}, template=template_first_session_master, 
                                                     template_format='f-string', validate_template=True)
+        # Load prompts for sessions master
+        template_sessions_master = read_txt_files(SESSIONS_MASTER_PROMPT_PATH)
+        self.prompt_sessions_master = PromptTemplate(input_variables=['personal_information','summary_previuos_session', 
+                                                                      'summary_conversation','patient_message'],
+                                                     output_parser=None, partial_variables={}, 
+                                                     template=template_sessions_master, 
+                                                     template_format='f-string', validate_template=True
+                                                    )
+                                                     
         
         # Load prompts for the summarizer
         template_summary_conversation = read_txt_files(SUMMARY_CONVERSATION_PROMPT_PATH)
@@ -242,6 +249,10 @@ class Chatbot():
         # Load personal information
         self.user_manager.load_personal_information()
         self.personal_information = self.user_manager.give_personal_information()
+        
+        # Load last session summary
+        self.user_manager.load_last_session_summary()
+        self.summary_previous_session = self.user_manager.load_last_session_summary()
         return None
 
     def __actualize_session_number(self,):
@@ -273,7 +284,7 @@ class Chatbot():
             for f, m in zip(conversation_examples, metadata)]
         
         # Load the data to vector database
-        self.vectorstore.add_documents(documents_conversation, metadata = metadata)
+        self.vectorstore_conversation.add_documents(documents_conversation, metadata = metadata, verbose = False)
     
         # Load history of chat sessions
 
@@ -286,6 +297,11 @@ class Chatbot():
         # Not implemented yet
         pass
     
+    def __similarity_search(self, query , n_results = 1):
+        results = self.vectorstore_conversation.similarity_search(query)[n_results-1]
+        results_strings = results.page_content
+        return results_strings
+        
     def message_of_welcome(self,):
         if self.state == 0:
             # Read the message of welcome from the file
@@ -303,6 +319,11 @@ class Chatbot():
                 # Add EVE: to the beginning of the message and print the message
                 print(message)
 
+    def __obtain_n_last_messages_string(self, n_last_messages = 2):
+        last_messages = self.__obtain_n_last_messages(n_last_messages= n_last_messages)
+        last_messages_txt = convert_messages_in_txt(last_messages)
+        return last_messages_txt
+        
     def __predict_new_summary(self):
         # Generate a summary of the conversation
         if self.summarizer.buffer == '':

@@ -4,6 +4,10 @@ from langchain.text_splitter import CharacterTextSplitter
 
 from config import CHUNK_OVERLAP, CHUNK_SIZE
 
+def obtain_number_session(file_name):
+    parts = file_name.split("_")
+    return int(parts[2])
+
 def read_txt_files(path):
     file_path  = path 
     with open(file_path, 'r') as output_file:
@@ -16,7 +20,8 @@ def split_txt_file(raw_text, separator = "\n#"):
             separator=separator,
             chunk_size= CHUNK_SIZE,
             chunk_overlap= CHUNK_OVERLAP,
-            length_function=len
+            length_function=len,
+            
             
         )
     chunks = text_splitter.split_text(raw_text)

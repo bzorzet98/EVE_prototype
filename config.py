@@ -31,8 +31,11 @@ FIRST_SESSION_PROMPT_PATH = PROMPTS_PATH + "/" + "first_session.txt"
 FIRST_SESSION_SUMMARY_PROMPT_PATH = PROMPTS_PATH + "/" + "first_session_summary.txt"
 FIRST_SESSION_MASTER_PROMPT_PATH = PROMPTS_PATH + "/" + "first_session_master.txt"
 
+SESSIONS_MASTER_PROMPT_PATH = PROMPTS_PATH + "/" + "sessions_master.txt"
+
 SUMMARY_CONVERSATION_PROMPT_PATH = PROMPTS_PATH + "/" + "summary_conversation.txt"
 SUMMARY_CONVERSATION_FINISH_SESSION_PROMPT_PATH = PROMPTS_PATH + "/" + "summary_conversation_finish_session.txt"
+
 
 SESSION_FINISHED_SUMMARY_PROMPT_PATH = PROMPTS_PATH + "/" + "session_summary.txt"
 

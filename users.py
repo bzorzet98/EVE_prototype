@@ -4,7 +4,7 @@ import uuid
 from config import USER_PATH , SESSION_LIST_NAME, PERSONAL_INFORMATION_TEMPLATE_PATH
 import pandas as pd
 
-from functions_auxiliary import save_as_txt
+from functions_auxiliary import save_as_txt, obtain_number_session
 
 
 class UserManager:
@@ -119,8 +119,28 @@ class UserManager:
             path = self.user_path + "/" + "personal_information.txt"
         self.personal_information = self.read_file(path)
     
+    def load_last_session_summary(self,):
+        if not os.path.exists(self.user_path + "/" + "summary_sessions"):
+            print("")
+            self.last_session_summary = ""
+        else:
+            # Posible files
+            sessions_files = os.listdir(self.user_path + "/" + "summary_sessions")
+            if len(sessions_files) == 0:
+                print("")
+                self.last_session_summary = ""
+            else:
+                # Sort by session number
+                file_names = sorted(sessions_files, key=obtain_number_session, reverse=True)
+                # Last session
+                last_session = file_names[0]
+                self.last_session_summary = self.read_file(self.user_path + "/" + "summary_sessions" + "/" + last_session)
+        
     def give_personal_information(self):
         return self.personal_information
+    
+    def give_last_session_summary(self):
+        return self.last_session_summary
     
     def modify_personal_information(self, personal_information):
         self.personal_information = personal_information
