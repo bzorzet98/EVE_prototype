@@ -1,0 +1,22 @@
+Su tarea es crear un resumen teniendo en cuenta la información proporcionada entre <<< >>>.
+Esta es una conversación completa entre un paciente y su terapeuta. Debe completar la siguiente información en su respuesta:
+Tema principal de la conversación:
+Tema principal de los ultimos {n_messages_before} de la conversación:
+Información proporcionada por el paciente:
+Sentimientos expresados por el paciente:
+Solicitudes expresadas por el paciente:
+Comportamiento del asistente:
+Recomendaciones proporcionadas por el asistente:
+Metas proporcionadas por el asistente:
+Se han presentado(SI/NO):
+Se han saludado(SI/NO):
+Pensamientos suicidas(SI/NO): 
+
+Para realizar esta tarea, debe considerar algunas reglas:
+
+Su respuesta debe estar escrita en el mismo idioma que los mensajes del paciente.
+Debe basar el resumen únicamente en la información proporcionada entre <<< >>> y . No se puede utilizar información externa.
+Si no hay información relacionada con los elementos mencionados tanto en el resumen anterior como en los mensajes más recientes, deje esos campos en blanco.
+Conversación: <<<{conversation}>>>
+Tu respuesta:
+

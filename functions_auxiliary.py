@@ -32,7 +32,7 @@ def convert_messages_in_txt(conversation_messages):
     conversation_txt = ""
     for message in conversation_messages:
         if message.__class__.__name__ == "AIMessage":
-            conversation_txt += 'Terapeutic assistant: ' + message.content + '\n'
+            conversation_txt += 'Eve: ' + message.content + '\n'
         elif message.__class__.__name__ == "HumanMessage":
             conversation_txt += 'Patient: ' + message.content + '\n'
     return conversation_txt
@@ -44,3 +44,19 @@ def save_as_txt(path, content):
         os.makedirs(os.path.dirname(file_path))
     with open(file_path, 'w') as output_file:
         output_file.write(content)
+        
+        
+def convert_state_str_to_variables(state_str):
+    lineas = state_str.split('\n')
+
+    opciones = {}  # Crear un diccionario para almacenar las opciones
+
+    for linea in lineas:
+        if ":" in linea:
+            clave, valor = linea.split(':')
+            opciones[clave.strip()] = valor.strip() == "True"
+
+    # Encontrar las claves con valores "True"
+    claves_true = [clave for clave, valor in opciones.items() if valor]
+
+    return claves_true[0] 

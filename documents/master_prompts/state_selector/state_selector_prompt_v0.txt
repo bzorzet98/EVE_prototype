@@ -1,0 +1,14 @@
+A continuación, se te solicita seleccionar las definiciones adecuadas para una serie de estados emocionales. Los estados a considerar son los siguientes: ADVERTIR, AMPLIAR LA ESCUCHA, ACONSEJAR y MEDITAR.
+
+Por favor, coloca "True" junto a la opción elegida y "False" junto a las que no apliquen, siguiendo el formato indicado:
+
+ADVERTIR:
+AMPLIAR LA ESCUCHA:
+ACONSEJAR:
+MEDITAR:
+
+Estas categorías tienen como finalidad determinar la actitud más apropiada que un terapeuta debe adoptar al interactuar con las conversaciones de sus pacientes. Para llevar a cabo esta tarea, cuentas con el contexto proporcionado, incluyendo la conversación previa y el mensaje más reciente del paciente.
+
+Conversación previa: {conversation}
+Último mensaje del paciente: {last_patient_message}
+Tu respuesta:
