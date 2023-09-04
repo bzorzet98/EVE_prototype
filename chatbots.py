@@ -11,7 +11,7 @@ import os
 
 # Import prompts path of config.py
 from config import SUMMARY_CONVERSATION_PROMPT_PATH, MODIFIED_PATIENT_MESSAGE_PROMPT_PATH , STATE_SELECTOR_PROMPT_PATH, MODIFIED_PERSONAL_INFORMATION_PATIENT_PROMPT_PATH
-from config import EVE_RESPONSE_PROMPT_PATH, ADVICE_STATE_PROMPT_PATH, KEEP_HEARDING_STATE_PROMPT_PATH, MEDITATE_STATE_PROMPT_PATH, WARNING_STATE_PROMPT_PATH
+from config import EVE_RESPONSE_PROMPT_PATH,MODIFIED_EVE_MESSAGE_PROMPT_PATH, ADVICE_STATE_PROMPT_PATH, KEEP_HEARDING_STATE_PROMPT_PATH, MEDITATE_STATE_PROMPT_PATH, WARNING_STATE_PROMPT_PATH
 
 
 
@@ -45,8 +45,9 @@ from users import UserManager
 from functions_auxiliary import *
 
 
+
 class Chatbot():
-    def __init__(self,):
+    def __init__(self, developer_mode = False):
         # User manager
         self.user_manager = UserManager()
         self.username = None
@@ -59,6 +60,8 @@ class Chatbot():
         self.current_session_number = None
         self.current_session_date = None
 
+        self.developer_mode = developer_mode
+        
         # Load prompts
         self.__load_prompts()
 
@@ -98,6 +101,9 @@ class Chatbot():
         self.prompt_eve_response = PromptTemplate.from_template("empty {empty}")
         self.chain_conversation = LLMChain(llm = self.chat_model, verbose = False, prompt = self.prompt_eve_response)
         
+        self.prompt_modified_eve_response = PromptTemplate.from_template("empty {empty}")
+        self.chain_modified_eve_response = LLMChain(llm = self.cambalache_model, verbose = False,
+                                                    prompt=self.prompt_modified_eve_response)
         # Initialize the chatbot
         self.initialize_chatbot()
 
@@ -136,6 +142,8 @@ class Chatbot():
         conversation_history_modified = self.get_complete_conversation_modified()
         patient_message_modified = self.chain_modified_patient_message.predict(conversation= conversation_history_modified,
                                                                                last_patient_message = patient_message)
+        if self.developer_mode:
+            print(f"\n Mensaje del paciente modificado:{patient_message_modified}")
         # Add patient message modified to memory
         self.__add_user_messages_modified_in_memory(patient_message_modified)
         # Obtain conversation history modified
@@ -143,19 +151,21 @@ class Chatbot():
         
         # Predict a new summary of the conversation
         conversation_summary = self.__predict_new_summary(conversation = conversation_history_modified)
-
+        
         # Update current personal information
         self.__update_personal_information(conversation_history_modified)
         
         # Obtain similarity search
         similar_conversations = self.__similarity_search(patient_message_modified)
         
-        
         # Obtain the state: 
         state = self.chain_state_selector.predict(conversation = conversation_history_modified,
                                                   last_patient_message = patient_message_modified)
         
         state_str = convert_state_str_to_variables(state)
+        
+        if self.developer_mode:
+            print(f"\n --------Este es el estado predicho:{state_str}-------\n ")
         
         if state_str == "ADVERTIR":
             eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
@@ -187,13 +197,20 @@ class Chatbot():
                                                           conversation_examples=similar_conversations,
                                                           patient_message=patient_message_modified,
                                                           prompt_state = self.template_keep_hearding_state)
-
+        if self.developer_mode:
+            print(f'Original message of Eve: {eve_message}')
+        
+        # Modified the eve message
+        eve_message_modified = self.chain_modified_eve_response.predict(conversation = conversation_history_modified,
+                                                                        last_eve_message = eve_message)
+        
         # Add AI assistant message to memory
         self.__add_ai_messages_in_memory(eve_message)
-        self.__add_ai_messages_in_memory_modified(eve_message)
+        self.__add_ai_messages_in_memory_modified(eve_message_modified)
 
         # Print AI assistant message
-        print(f"Eve :{eve_message}")
+        print(f"Eve :{eve_message_modified}")
+        return eve_message_modified
     
     def get_complete_conversation_modified(self,):
         return convert_messages_in_txt(self.memory_conversation_modified.messages)
@@ -230,6 +247,7 @@ class Chatbot():
         self.chain_personal_information_updater.prompt = self.prompt_modified_personal_information_patient
         self.chain_state_selector.prompt = self.prompt_state_selector
         self.chain_summary_current_conversation.prompt = self.prompt_summary_conversation
+        self.chain_modified_eve_response.prompt = self.prompt_modified_eve_response
         
         
         
@@ -282,6 +300,12 @@ class Chatbot():
                                                 template=template_eve_response, 
                                                 template_format='f-string', validate_template=True)
         
+        # Load prompt of eve modified response
+        template_modified_eve_response = read_txt_files(MODIFIED_EVE_MESSAGE_PROMPT_PATH)
+        self.prompt_modified_eve_response = PromptTemplate(input_variables=['conversation', 'last_eve_message'],
+                                                           output_parser=None, partial_variables={},
+                                                            template=template_modified_eve_response, 
+                                                            template_format='f-string', validate_template=True)
         # Load template of advice state, keep hearding, meditate and warning
         self.template_advice_state = read_txt_files(ADVICE_STATE_PROMPT_PATH)
         self.template_keep_hearding_state = read_txt_files(KEEP_HEARDING_STATE_PROMPT_PATH)
@@ -353,6 +377,8 @@ class Chatbot():
     def __similarity_search(self, query , n_results = 1):
         results = self.vectorstore_examples_conversation.similarity_search(query)[n_results-1]
         results_strings = results.page_content
+        if self.developer_mode:
+            print(f"\n --------Estos son los resultados de la busqueda:{results_strings}-------\n ")
         return results_strings
         
     def message_of_welcome(self,):
@@ -379,6 +405,8 @@ class Chatbot():
     def __predict_new_summary(self, conversation, n_last_messages = 2):
         summary = self.chain_summary_current_conversation.predict(conversation = conversation,
                                                                   n_messages_before = n_last_messages)
+        if self.developer_mode:
+            print(f"\n --------Esta es el resumen generado:{summary}-------\n ")
         return summary
         
     def __predict_new_summary_finish_session(self,complete_conversation):
@@ -412,7 +440,8 @@ class Chatbot():
         # Replace the personal information 
         self.personal_information = self.chain_personal_information_updater.predict(previous_information=self.personal_information,
                                                                             conversation = conversation)
-
+        if self.developer_mode:
+            print(f"\n --------Esta es la actualizacion de la información personal:{self.personal_information}-------\n ")
     def __update_personal_information_finish_session(self,complete_conversation):
         # Update personal information updater prompt 
         self.chain_personal_information_updater.prompt = self.update_personal_information_finish_session_prompt

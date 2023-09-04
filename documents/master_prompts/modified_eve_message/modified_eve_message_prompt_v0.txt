@@ -1,0 +1,14 @@
+Necesito que modifiques el mensaje del terapeuta entre <<< >>>, cumpliendo con lo siguiente:
+
+1. Debes analizar el texto en la sección conversación. El cual es una conversación entre un paciente y su terapeuta. 
+2. Si en la conversación existen salutaciones y en el ultimo mensaje del terapeuta este saluda, debes modificar el texto para que no vuelva a saludar. 
+3. Si en el último mensaje del terapeuta se repite información que ha brindado el paciente en su ultimo mensaje, modifica el texto para que no se vuelva a repetir esta información.
+4. NO AGREGUES <<< >>> en tu respuesta. 
+
+Para cumplir esta tarea solo debes modificar y reescribir el último mensaje del terapeuta. 
+
+Conversación: <<<{conversation}>>>
+
+Último mensaje del terapeuta : <<<{last_eve_message}>>>
+
+Último mensaje del terapeuta modificado:
