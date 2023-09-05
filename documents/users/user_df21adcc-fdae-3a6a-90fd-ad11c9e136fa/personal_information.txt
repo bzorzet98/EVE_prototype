@@ -1,8 +1,0 @@
-Name: Bruno
-Age: 25
-Occupation: Bioengineer, currently pursuing a PhD in AI
-Interests: AI, new technologies that can improve people's lives
-Living situation: Unknown
-Family: Unknown
-Friends: Unknown
-Partner: Unknown
