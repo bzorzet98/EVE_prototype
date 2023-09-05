@@ -22,7 +22,7 @@ def transcribe_audio(audio_file,):
     result = model.transcribe(audio_file)
     return result["text"]
 
-def response(input_audio_patient=None, input_txt_patient=None, chat_history = None):
+def submit_function(input_audio_patient=None, input_txt_patient=None, chat_history = None):
     global eve
     if input_audio_patient and (input_txt_patient is None):
         input_txt_patient = transcribe_audio(input_audio_patient.read())
@@ -31,9 +31,7 @@ def response(input_audio_patient=None, input_txt_patient=None, chat_history = No
         return "Error: No se ingresó texto ni audio."
     eve_message = eve.chat(input_txt_patient)
     chat_history.append((input_txt_patient, eve_message))
-    return "", chat_history
-
-
+    return chat_history
 
 with block:
     chatbot = gr.Chatbot()
@@ -46,7 +44,11 @@ with block:
     
     finish_button = gr.Button(value="Finish session")
     
-    submmit_button.click(response, inputs=[audio_input, patient_message, chatbot], outputs=[chatbot])
+    submmit_button.click(submit_function, inputs=[audio_input, patient_message, chatbot], outputs=chatbot)
+    
+    
+    
+    
     
     # btn.click(combine, inputs=[txt, txt_2], outputs=[txt_3])
     
