@@ -63,5 +63,5 @@ with block:
     finish_button = gr.Button(value="Finish session")
     finish_button.click(finish_session, [chatbot], [chatbot])
     
-block.launch(share=True)
+block.queue().launch(share=True)
     
