@@ -11,6 +11,13 @@ eve = Chatbot(developer_mode=True)
 continue_chatting = True
 block = gr.Blocks()
 
+
+
+#tts.tts_to_file(text="I love playing Chess", file_path="output.wav")
+
+     
+
+
 # Definimos las funciones
 def finish_session():
     global eve
@@ -32,6 +39,8 @@ def submit_function(input_audio_patient=None, input_txt_patient=None, chat_histo
     eve_message = eve.chat(input_txt_patient)
     chat_history.append((input_txt_patient, eve_message))
     return chat_history
+
+
 
 with block:
     chatbot = gr.Chatbot()
