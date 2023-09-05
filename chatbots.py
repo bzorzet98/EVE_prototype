@@ -44,8 +44,6 @@ from langchain.text_splitter import CharacterTextSplitter
 from users import UserManager
 from functions_auxiliary import *
 
-
-
 class Chatbot():
     def __init__(self, developer_mode = False):
         # User manager
@@ -222,20 +220,23 @@ class Chatbot():
         self.user_manager.modify_last_sessions_number(self.current_session_number, self.current_session_date)
         
         # Generate the convertation txt
-        complete_conversation = convert_messages_in_txt(self.memory_conversation.messages)
+        complete_conversation_modified = self.get_complete_conversation_modified()
         
         # Update personal information finish session
-        self.__update_personal_information_finish_session(complete_conversation)
+        self.__update_personal_information(complete_conversation_modified)
+        
         # Save personal information
         self.user_manager.modify_personal_information(self.personal_information)
         
         # Update summary of the complete conversation
-        self.__predict_new_summary_finish_session(complete_conversation)
+        summary_complete_conversation = self.__predict_new_summary(complete_conversation_modified, n_last_messages = 2)
+        
         # Save summary of the complete conversation
-        self.user_manager.save_summary_session(self.summary_complete_conversation, self.current_session_number, 
+        self.user_manager.save_summary_session(summary_complete_conversation, self.current_session_number, 
                                                self.current_session_date)
         
         # Save entery conversation
+        complete_conversation = self.get_complete_conversation()
         self.user_manager.save_entery_conversation(complete_conversation, self.current_session_number, self.current_session_date)
         
         pass
@@ -247,9 +248,7 @@ class Chatbot():
         self.chain_personal_information_updater.prompt = self.prompt_modified_personal_information_patient
         self.chain_state_selector.prompt = self.prompt_state_selector
         self.chain_summary_current_conversation.prompt = self.prompt_summary_conversation
-        self.chain_modified_eve_response.prompt = self.prompt_modified_eve_response
-        
-        
+        self.chain_modified_eve_response.prompt = self.prompt_modified_eve_response      
         
     def __config_conversation_chatbot(self,):
         if self.state == 0:
@@ -388,14 +387,7 @@ class Chatbot():
             message = file.read().replace("<<<USERNAME>>>", self.username)
             # Print the message
             print(message)
-        # else: 
-        #     # Read the message of welcome from the file
-        #     with open(PREDEFINED_MESSAGES + "/welcome_messages.txt", 'r') as file:
-        #         # Replace <<<USERNAME>>>,<<<SESSION>>> and <<<LAST_SESSION_DATE>>> in txt for self.username, self.last_session_number and self.last_session_date
-        #         last_session_date = self.last_session_date[6:]
-        #         message = file.read().replace("<<<USERNAME>>>", self.username).replace("<<<SESSION>>>", str(self.last_session_number)).replace("<<<LAST_SESSION_DATE>>>", last_session_date)
-        #         # Add EVE: to the beginning of the message and print the message
-        #         print(message)
+       
 
     def __obtain_n_last_messages_string(self, n_last_messages = 2):
         last_messages = self.__obtain_n_last_messages(n_last_messages= n_last_messages)
@@ -408,10 +400,7 @@ class Chatbot():
         if self.developer_mode:
             print(f"\n --------Esta es el resumen generado:{summary}-------\n ")
         return summary
-        
-    def __predict_new_summary_finish_session(self,complete_conversation):
-        self.summary_complete_conversation = self.summarizer_finish_session.predict(conversation= complete_conversation)
-           
+               
     def __obtain_last_summary(self):
         return self.summarizer.buffer()
 
@@ -442,14 +431,8 @@ class Chatbot():
                                                                             conversation = conversation)
         if self.developer_mode:
             print(f"\n --------Esta es la actualizacion de la información personal:{self.personal_information}-------\n ")
-    def __update_personal_information_finish_session(self,complete_conversation):
-        # Update personal information updater prompt 
-        self.chain_personal_information_updater.prompt = self.update_personal_information_finish_session_prompt
-        # Replace the personal information 
-        self.personal_information = self.chain_personal_information_updater.predict(previous_information=self.personal_information,
-                                                                                conversation= complete_conversation)
-        
-        
+    
+    
 
 
 

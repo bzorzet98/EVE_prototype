@@ -21,7 +21,18 @@ def eve_interface(input_audio_patient=None, input_txt_patient=None):
     
     return eve.chat(input_txt_patient)
     
+import os
 
+def get_chatbot_response(x):
+    os.rename(x, x + '.wav')
+    return [((x + '.wav',), "Your voice sounds nice!")]
+
+with gr.Blocks() as demo:
+    chatbot = gr.Chatbot()
+    mic = gr.Audio(source="microphone", type="filepath")
+    mic.change(get_chatbot_response, mic, chatbot)
+    
+demo.launch()
 
 
 if __name__ == "__main__":
@@ -30,6 +41,9 @@ if __name__ == "__main__":
     continue_chatting = True
 
     audio_input = gr.inputs.Audio(source="microphone", type="numpy")
+    button_convert_voice_2_speech = gr.Button(label="Convert voice to text")
+    
+    
     text_input = gr.inputs.Textbox(label="")
     
     # Crea una interfaz Gradio para hablar por micrófono o escribir texto
