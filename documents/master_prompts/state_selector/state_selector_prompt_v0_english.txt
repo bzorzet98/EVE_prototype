@@ -1,0 +1,14 @@
+Next, you are asked to select the appropriate definitions for a series of emotional states. The states to consider are as follows: WARN, EXPAND LISTENING, ADVISE, and MEDITATE.
+
+Please place "True" next to the chosen option and "False" next to those that do not apply, following the indicated format:
+
+WARN:
+EXPAND LISTENING:
+ADVISE:
+MEDITATE:
+
+These categories are intended to determine the most appropriate attitude for a therapist to adopt when interacting with their patients' conversations. To complete this task, you have the provided context, including the previous conversation and the patient's most recent message.
+
+Previous Conversation: {conversation}
+Patient's Last Message: {last_patient_message}
+Your response:

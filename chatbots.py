@@ -14,7 +14,7 @@ from config import SUMMARY_CONVERSATION_PROMPT_PATH, MODIFIED_PATIENT_MESSAGE_PR
 from config import EVE_RESPONSE_PROMPT_PATH,MODIFIED_EVE_MESSAGE_PROMPT_PATH, ADVICE_STATE_PROMPT_PATH, KEEP_HEARDING_STATE_PROMPT_PATH, MEDITATE_STATE_PROMPT_PATH, WARNING_STATE_PROMPT_PATH
 
 
-
+import threading
 
 from config import CONVERSATION_EXAMPLES_PATH , OPENAI_API_KEY , PROMPTS_PATH, DICT_STATES, PREDEFINED_MESSAGES, CHAT_TEMPERATURE
 
@@ -130,6 +130,15 @@ class Chatbot():
         
         pass
     
+
+    def process_new_summary(self, conversation_history_modified, summary_holder):
+        summary = self.__predict_new_summary(conversation=conversation_history_modified)
+        summary_holder[0] = summary
+        
+    def process_similarity_search(self, patient_message_modified, similar_conversation_holder):
+        similar_conversations = self.__similarity_search(patient_message_modified)
+        similar_conversation_holder[0] = similar_conversations
+        
     def chat(self, patient_message):
         # Obtain last messages
         last_messages = self.__obtain_n_last_messages_string(n_last_messages=2)
@@ -140,6 +149,7 @@ class Chatbot():
         conversation_history_modified = self.get_complete_conversation_modified()
         patient_message_modified = self.chain_modified_patient_message.predict(conversation= conversation_history_modified,
                                                                                last_patient_message = patient_message)
+        
         if self.developer_mode:
             print(f"\n Mensaje del paciente modificado:{patient_message_modified}")
         # Add patient message modified to memory
@@ -147,12 +157,28 @@ class Chatbot():
         # Obtain conversation history modified
         conversation_history_modified = self.get_complete_conversation_modified()
         
-        # Predict a new summary of the conversation
-        conversation_summary = self.__predict_new_summary(conversation = conversation_history_modified)
+        # Create threads for parallel processing
+        personal_info_thread = threading.Thread(target=self.__update_personal_information, args=(conversation_history_modified))
         
-        # Update current personal information
-        self.__update_personal_information(conversation_history_modified)
+        summary_holder = [None]
+        new_summary_thread = threading.Thread(target=self.process_new_summary, args=(conversation_history_modified, summary_holder))
         
+        similar_conversation_holder = [None]
+        similarity_search_thread = threading.Thread(target=self.process_similarity_search, args=(patient_message_modified,similar_conversation_holder))
+
+            # Start the threads
+        personal_info_thread.start()
+        new_summary_thread.start()
+        similarity_search_thread.start()
+
+        # Wait for all threads to finish before continuing
+        personal_info_thread.join()
+        new_summary_thread.join()
+        similarity_search_thread.join()
+        
+        # 
+        conversation_summary = summary_holder[0]
+        similar_conversations = similar_conversation_holder[0]
         # Obtain similarity search
         similar_conversations = self.__similarity_search(patient_message_modified)
         
@@ -165,14 +191,14 @@ class Chatbot():
         if self.developer_mode:
             print(f"\n --------Este es el estado predicho:{state_str}-------\n ")
         
-        if state_str == "ADVERTIR":
+        if state_str == "WARN":
             eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
                                                           previous_conversation_summary = conversation_summary,
                                                           last_messages=last_messages,
                                                           conversation_examples=similar_conversations,
                                                           patient_message=patient_message_modified,
                                                           prompt_state = self.template_warning)
-        elif state_str == "ACONSEJAR":
+        elif state_str == "ADVISE":
             eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
                                                           previous_conversation_summary = conversation_summary,
                                                           last_messages=last_messages,
@@ -180,7 +206,7 @@ class Chatbot():
                                                           patient_message=patient_message_modified,
                                                           prompt_state = self.template_advice_state)
             pass
-        elif state_str == "MEDITAR":
+        elif state_str == "MEDITATE":
             eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
                                                           previous_conversation_summary = conversation_summary,
                                                           last_messages=last_messages,
@@ -188,7 +214,7 @@ class Chatbot():
                                                           patient_message=patient_message_modified,
                                                           prompt_state = self.template_meditate)
             pass
-        elif state_str == "AMPLIAR LA ESCUCHA":
+        elif state_str == "EXPAND LISTENING":
             eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
                                                           previous_conversation_summary = conversation_summary,
                                                           last_messages=last_messages,
@@ -209,6 +235,89 @@ class Chatbot():
         # Print AI assistant message
         print(f"Eve :{eve_message_modified}")
         return eve_message_modified
+    
+        
+        
+        
+    # def chat(self, patient_message):
+    #     # Obtain last messages
+    #     last_messages = self.__obtain_n_last_messages_string(n_last_messages=2)
+    #     # Add patient message to memory
+    #     self.__add_user_messages_in_memory(patient_message)
+        
+    #     # Modified the patient message
+    #     conversation_history_modified = self.get_complete_conversation_modified()
+    #     patient_message_modified = self.chain_modified_patient_message.predict(conversation= conversation_history_modified,
+    #                                                                            last_patient_message = patient_message)
+    #     if self.developer_mode:
+    #         print(f"\n Mensaje del paciente modificado:{patient_message_modified}")
+    #     # Add patient message modified to memory
+    #     self.__add_user_messages_modified_in_memory(patient_message_modified)
+    #     # Obtain conversation history modified
+    #     conversation_history_modified = self.get_complete_conversation_modified()
+        
+    #     # Predict a new summary of the conversation
+    #     conversation_summary = self.__predict_new_summary(conversation = conversation_history_modified)
+        
+    #     # Update current personal information
+    #     self.__update_personal_information(conversation_history_modified)
+        
+    #     # Obtain similarity search
+    #     similar_conversations = self.__similarity_search(patient_message_modified)
+        
+    #     # Obtain the state: 
+    #     state = self.chain_state_selector.predict(conversation = conversation_history_modified,
+    #                                               last_patient_message = patient_message_modified)
+        
+    #     state_str = convert_state_str_to_variables(state)
+        
+    #     if self.developer_mode:
+    #         print(f"\n --------Este es el estado predicho:{state_str}-------\n ")
+        
+    #     if state_str == "WARN":
+    #         eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
+    #                                                       previous_conversation_summary = conversation_summary,
+    #                                                       last_messages=last_messages,
+    #                                                       conversation_examples=similar_conversations,
+    #                                                       patient_message=patient_message_modified,
+    #                                                       prompt_state = self.template_warning)
+    #     elif state_str == "ADVISE":
+    #         eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
+    #                                                       previous_conversation_summary = conversation_summary,
+    #                                                       last_messages=last_messages,
+    #                                                       conversation_examples=similar_conversations,
+    #                                                       patient_message=patient_message_modified,
+    #                                                       prompt_state = self.template_advice_state)
+    #         pass
+    #     elif state_str == "MEDITATE":
+    #         eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
+    #                                                       previous_conversation_summary = conversation_summary,
+    #                                                       last_messages=last_messages,
+    #                                                       conversation_examples=similar_conversations,
+    #                                                       patient_message=patient_message_modified,
+    #                                                       prompt_state = self.template_meditate)
+    #         pass
+    #     elif state_str == "EXPAND LISTENING":
+    #         eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
+    #                                                       previous_conversation_summary = conversation_summary,
+    #                                                       last_messages=last_messages,
+    #                                                       conversation_examples=similar_conversations,
+    #                                                       patient_message=patient_message_modified,
+    #                                                       prompt_state = self.template_keep_hearding_state)
+    #     if self.developer_mode:
+    #         print(f'Original message of Eve: {eve_message}')
+        
+    #     # Modified the eve message
+    #     eve_message_modified = self.chain_modified_eve_response.predict(conversation = conversation_history_modified,
+    #                                                                     last_eve_message = eve_message)
+        
+    #     # Add AI assistant message to memory
+    #     self.__add_ai_messages_in_memory(eve_message)
+    #     self.__add_ai_messages_in_memory_modified(eve_message_modified)
+
+    #     # Print AI assistant message
+    #     print(f"Eve :{eve_message_modified}")
+    #     return eve_message_modified
     
     def get_complete_conversation_modified(self,):
         return convert_messages_in_txt(self.memory_conversation_modified.messages)
