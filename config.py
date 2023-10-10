@@ -29,48 +29,35 @@ PERSONAL_INFORMATION_TEMPLATE_PATH = os.getcwd() + "/" + "documents" + "/" + "te
 # Template of prompts
 PROMPTS_PATH = os.getcwd() + "/" + "documents" + "/" + "master_prompts"
 
-SUMMARY_CONVERSATION_PROMPT_PATH = PROMPTS_PATH + "/" + "summary_conversations" + "/" + "summary_conversation_prompt_v0_english.txt"
-# SUMMARY_CONVERSATION_PROMPT_PATH = PROMPTS_PATH + "/" + "summary_conversations" + "/" + "summary_conversation_prompt_v0.txt"
 
-MODIFIED_PATIENT_MESSAGE_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_patient_message" + "/" + "modified_patient_message_prompt_v0_english.txt"
-#MODIFIED_PATIENT_MESSAGE_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_patient_message" + "/" + "modified_patient_message_prompt_v0.txt"
+ENGLISH = True
+if ENGLISH:
+    SUMMARY_CONVERSATION_PROMPT_PATH = PROMPTS_PATH + "/" + "summary_conversations" + "/" + "summary_conversation_prompt_v0_english.txt"
+    MODIFIED_PATIENT_MESSAGE_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_patient_message" + "/" + "modified_patient_message_prompt_v0_english.txt"
+    MODIFIED_EVE_MESSAGE_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_eve_message" + "/" + "modified_eve_message_prompt_v0_english.txt"
+    STATE_SELECTOR_PROMPT_PATH = PROMPTS_PATH + "/" + "state_selector" + "/" + "state_selector_prompt_v0_english.txt"
+    MODIFIED_PERSONAL_INFORMATION_PATIENT_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_personal_information_patient" + "/" + "modified_personal_information_patient_prompt_v0_english.txt"
+    EVE_RESPONSE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "eve_response_prompt_english.txt"
+    ADVICE_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "advice_state_prompt_english.txt"
+    KEEP_HEARDING_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "keep_hearding_state_prompt_english.txt"
+    MEDITATE_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "meditate_state_prompt_english.txt"
+    WARNING_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "warning_state_prompt_english.txt"
 
-MODIFIED_EVE_MESSAGE_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_eve_message" + "/" + "modified_eve_message_prompt_v0_english.txt"
-# MODIFIED_EVE_MESSAGE_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_eve_message" + "/" + "modified_eve_message_prompt_v0.txt"
+    # Finetunning
+    EVE_PROMPT_SYSTEM_FOR_FINE_TUNNING = PROMPTS_PATH + "/" + "eve_response" + "/" + "eve_prompt_system_for_finetunning_english.txt"
+else: 
+    WARNING_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "warning_state_prompt.txt"
+    ADVICE_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "advice_state_prompt.txt"
+    KEEP_HEARDING_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "keep_hearding_state_prompt.txt"
+    MEDITATE_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "meditate_state_prompt.txt"
+    EVE_RESPONSE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "eve_response_prompt.txt"
+    MODIFIED_PERSONAL_INFORMATION_PATIENT_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_personal_information_patient" + "/" + "modified_personal_information_patient_prompt_v0.txt"
+    STATE_SELECTOR_PROMPT_PATH = PROMPTS_PATH + "/" + "state_selector" + "/" + "state_selector_prompt_v0.txt"
+    MODIFIED_EVE_MESSAGE_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_eve_message" + "/" + "modified_eve_message_prompt_v0.txt"
+    MODIFIED_PATIENT_MESSAGE_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_patient_message" + "/" + "modified_patient_message_prompt_v0.txt"
+    SUMMARY_CONVERSATION_PROMPT_PATH = PROMPTS_PATH + "/" + "summary_conversations" + "/" + "summary_conversation_prompt_v0.txt"
 
-STATE_SELECTOR_PROMPT_PATH = PROMPTS_PATH + "/" + "state_selector" + "/" + "state_selector_prompt_v0_english.txt"
-# STATE_SELECTOR_PROMPT_PATH = PROMPTS_PATH + "/" + "state_selector" + "/" + "state_selector_prompt_v0.txt"
-
-MODIFIED_PERSONAL_INFORMATION_PATIENT_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_personal_information_patient" + "/" + "modified_personal_information_patient_prompt_v0_english.txt"
-# MODIFIED_PERSONAL_INFORMATION_PATIENT_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_personal_information_patient" + "/" + "modified_personal_information_patient_prompt_v0.txt"
-
-EVE_RESPONSE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "eve_response_prompt_english.txt"
-# EVE_RESPONSE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "eve_response_prompt.txt"
-
-ADVICE_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "advice_state_prompt_english.txt"
-# ADVICE_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "advice_state_prompt.txt"
-KEEP_HEARDING_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "keep_hearding_state_prompt_english.txt"
-# KEEP_HEARDING_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "keep_hearding_state_prompt.txt"
-MEDITATE_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "meditate_state_prompt_english.txt"
-# MEDITATE_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "meditate_state_prompt.txt"
-WARNING_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "warning_state_prompt_english.txt"
-# WARNING_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "warning_state_prompt.txt"
-
-
-
-# FIRST_SESSION_PROMPT_PATH = PROMPTS_PATH + "/" + "first_session.txt"
-# FIRST_SESSION_SUMMARY_PROMPT_PATH = PROMPTS_PATH + "/" + "first_session_summary.txt"
-# FIRST_SESSION_MASTER_PROMPT_PATH = PROMPTS_PATH + "/" + "first_session_master.txt"
-
-# SESSIONS_MASTER_PROMPT_PATH = PROMPTS_PATH + "/" + "sessions_master.txt"
-
-# SUMMARY_CONVERSATION_PROMPT_PATH = PROMPTS_PATH + "/" + "summary_conversation.txt"
-# SUMMARY_CONVERSATION_FINISH_SESSION_PROMPT_PATH = PROMPTS_PATH + "/" + "summary_conversation_finish_session.txt"
+    # Finetunning
+    EVE_PROMPT_SYSTEM_FOR_FINE_TUNNING = PROMPTS_PATH + "/" + "eve_response" + "/" + "eve_prompt_system_for_finetunning_english.txt"
 
 
-# SESSION_FINISHED_SUMMARY_PROMPT_PATH = PROMPTS_PATH + "/" + "session_summary.txt"
-
-# PERSONAL_INFORMATION_PROMPT_PATH = PROMPTS_PATH + "/" + "personal_information.txt"
-
-# UPDATE_PERSONAL_INFORMATION_PROMPT_PATH = PROMPTS_PATH + "/" + "update_personal_information.txt"
-# UPDATE_PERSONAL_INFORMATION_FINISH_SESSION_PROMPT_PATH = PROMPTS_PATH + "/" + "update_personal_information_finish_session.txt"

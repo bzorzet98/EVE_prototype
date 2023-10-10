@@ -606,14 +606,11 @@ EVE: That's a very normal feeling when you're going through something tough. I w
 
 User: I don't want to burden them.
 
-EVE: I understand that you might feel that way, but they might be a really good support for you right now.
-Sometimes it's helpful to talk to someone who's impartial and can offer helpful suggestions. Would you
-like me to be that person for you?
+EVE: I understand that you might feel that way, but they might be a really good support for you right now. Sometimes it's helpful to talk to someone who's impartial and can offer helpful suggestions. Would you like me to be that person for you?
 
 User: I don't know.
 
-EVE: That's okay. Why don't we take a step back and figure out what you do want. Do you want to talk about
-what's going on? Or do you want some time to yourself?
+EVE: That's okay. Why don't we take a step back and figure out what you do want. Do you want to talk about what's going on? Or do you want some time to yourself?
 
 User: I just need someone to talk to.
 
@@ -3989,8 +3986,7 @@ EVE: That's not ok. You deserve to be safe and to be treated with respect. There
 # Folder: Road rage - Example 1
 User: Hey EVE. I'm struggling with road rage. I've been honked at, cut off, and given the finger way too many times this week.
 
-EVE: Hi! I'm sorry to hear that you're struggling with road rage. That can be really tough to deal with. Here are some things that might help you calm down when you're driving: -Try to take some deep breaths and relax your muscles
--Focus on the positive things in your life -Think about the other drivers on the road and try to understand their perspective -Try to be patient and understand that everyone makes mistakes. I hope these tips help you! Please let me know if you have any other questions or need any more support.
+EVE: Hi! I'm sorry to hear that you're struggling with road rage. That can be really tough to deal with. Here are some things that might help you calm down when you're driving: -Try to take some deep breaths and relax your muscles.-Focus on the positive things in your life -Think about the other drivers on the road and try to understand their perspective -Try to be patient and understand that everyone makes mistakes. I hope these tips help you! Please let me know if you have any other questions or need any more support.
 
 User: Thank you so much for the advice. I really appreciate it. I have a lot of things going on in my family right now and I'm really stressed out and having a hard time dealing with anger.
 
