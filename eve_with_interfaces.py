@@ -7,7 +7,7 @@ from TTS.api import TTS
 
 
 # Initialize Eve
-eve = Chatbot(developer_mode=False)
+eve = Chatbot(developer_mode=False, model_finetune=True)
 continue_chatting = True
 
 # Definimos las funciones

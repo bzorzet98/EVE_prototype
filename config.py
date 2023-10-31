@@ -3,8 +3,10 @@ import os
 # Configuration of the models
 CHAT_TEMPERATURE = 0.5
 CAMBALACHE_TEMPERATURE = 0.1
-
 OPENAI_API_KEY = "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"
+# Model FInetune
+FT_NAME = "ft:gpt-3.5-turbo-0613:eve:eve-v1:88FhyNRo"
+
 
 CHUNK_SIZE = 1000
 CHUNK_OVERLAP = 200
@@ -38,6 +40,7 @@ if ENGLISH:
     STATE_SELECTOR_PROMPT_PATH = PROMPTS_PATH + "/" + "state_selector" + "/" + "state_selector_prompt_v0_english.txt"
     MODIFIED_PERSONAL_INFORMATION_PATIENT_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_personal_information_patient" + "/" + "modified_personal_information_patient_prompt_v0_english.txt"
     EVE_RESPONSE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "eve_response_prompt_english.txt"
+    EVE_RESPONSE_FINETUNE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "eve_response_finetune_prompt_english.txt"
     ADVICE_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "advice_state_prompt_english.txt"
     KEEP_HEARDING_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "keep_hearding_state_prompt_english.txt"
     MEDITATE_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "meditate_state_prompt_english.txt"
@@ -51,6 +54,7 @@ else:
     KEEP_HEARDING_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "keep_hearding_state_prompt.txt"
     MEDITATE_STATE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "meditate_state_prompt.txt"
     EVE_RESPONSE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "eve_response_prompt.txt"
+    EVE_RESPONSE_FINETUNE_PROMPT_PATH = PROMPTS_PATH + "/" + "eve_response" + "/" + "eve_response_finetune_prompt.txt"
     MODIFIED_PERSONAL_INFORMATION_PATIENT_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_personal_information_patient" + "/" + "modified_personal_information_patient_prompt_v0.txt"
     STATE_SELECTOR_PROMPT_PATH = PROMPTS_PATH + "/" + "state_selector" + "/" + "state_selector_prompt_v0.txt"
     MODIFIED_EVE_MESSAGE_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_eve_message" + "/" + "modified_eve_message_prompt_v0.txt"
