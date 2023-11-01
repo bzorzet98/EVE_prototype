@@ -7,6 +7,7 @@ from langchain import LLMChain
 from prompt_config import PromptConfig_v1
 from conversation_manager import ConversationManager_v1
 from conversation_analysis import ConversationAnalysis_v1
+from chatbot import Chatbot_v1
 
 from configurations.config_llm import FT_NAME, CHAT_TEMPERATURE, OPENAI_API_KEY
 from configurations.config_prompts import SUMMARY_CONVERSATION_v1, PERSONAL_INFORMATION_v1, EVE_PROMPT_v1
@@ -37,12 +38,8 @@ class Eve_v1(BaseEve):
         # Initialize the conversation analysis
         self.conversation_analysis = ConversationAnalysis_v1()
         
-        # Initialize the model
-        self.model = ChatOpenAI(model_name = FT_NAME, temperature = CHAT_TEMPERATURE)
-        
-        # Initialize the chain conversation 
-        empty_prompt = self.prompt_manager.get_empty_prompt_template()
-        self.chain_conversation = LLMChain(llm = self.model, verbose = False, prompt = empty_prompt)
+        # Initialize the chatbot
+        self.chatbot = Chatbot_v1(model_name = FT_NAME, temperature = CHAT_TEMPERATURE)
         
         pass
     
@@ -62,7 +59,8 @@ class Eve_v1(BaseEve):
         # Load prompt for the summary conversation
         self.conversation_analysis.load_prompt_summary_conversation(prompt = self.prompt_manager.get_prompt('summary_conversation'))
         
-        # Load prompt for the eve message
+        # Load prompt for the chatbot
+        
         self.chain_conversation.prompt = self.prompt_manager.get_prompt('eve_message')
         
     def response(self, message):
@@ -79,40 +77,40 @@ class Eve_v1(BaseEve):
         
         
 
-             # Create threads for parallel processing
-            personal_info_thread = threading.Thread(target=self.__update_personal_information, args=(conversation_history))
+    #          # Create threads for parallel processing
+    #         personal_info_thread = threading.Thread(target=self.__update_personal_information, args=(conversation_history))
             
-            summary_holder = [None]
-            new_summary_thread = threading.Thread(target=self.process_new_summary, args=(conversation_history, summary_holder))
+    #         summary_holder = [None]
+    #         new_summary_thread = threading.Thread(target=self.process_new_summary, args=(conversation_history, summary_holder))
             
-            # Start the threads
-            personal_info_thread.start()
-            new_summary_thread.start()
+    #         # Start the threads
+    #         personal_info_thread.start()
+    #         new_summary_thread.start()
            
-            # Wait for all threads to finish before continuing
-            personal_info_thread.join()
-            new_summary_thread.join()
+    #         # Wait for all threads to finish before continuing
+    #         personal_info_thread.join()
+    #         new_summary_thread.join()
             
-            # 
-            conversation_summary = summary_holder[0]
+    #         # 
+    #         conversation_summary = summary_holder[0]
             
-            eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
-                                                            previous_conversation_summary = conversation_summary,
-                                                            last_messages=last_messages,
-                                                            patient_message=patient_message
-                                                            )
-            if self.developer_mode:
-                print(f'Original message of Eve: {eve_message}')
+    #         eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
+    #                                                         previous_conversation_summary = conversation_summary,
+    #                                                         last_messages=last_messages,
+    #                                                         patient_message=patient_message
+    #                                                         )
+    #         if self.developer_mode:
+    #             print(f'Original message of Eve: {eve_message}')
 
-            # Add AI assistant message to memory
-            self.__add_ai_messages_in_memory(eve_message)
+    #         # Add AI assistant message to memory
+    #         self.__add_ai_messages_in_memory(eve_message)
             
-            return eve_message
-    eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
-                                                            previous_conversation_summary = conversation_summary,
-                                                            last_messages=last_messages,
-                                                            patient_message=patient_message
-                                                            )
+    #         return eve_message
+    # eve_message = self.chain_conversation.predict(personal_information = self.personal_information,
+    #                                                         previous_conversation_summary = conversation_summary,
+    #                                                         last_messages=last_messages,
+    #                                                         patient_message=patient_message
+    #                                                         )
     
     
         
