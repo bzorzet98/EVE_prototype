@@ -193,7 +193,7 @@ dependencies:
     - nvidia-nvtx-cu11==11.7.91
     - oauthlib==3.2.2
     - onnxruntime==1.15.1
-    - openai==0.27.8
+    - openai==0.28.1
     - openai-whisper==20230314
     - openapi-schema-pydantic==1.2.4
     - orjson==3.9.5
@@ -201,6 +201,7 @@ dependencies:
     - pandas==2.0.3
     - pathtools==0.1.2
     - pillow==10.0.0
+    - pipreqs==0.4.13
     - pooch==1.7.0
     - posthog==3.0.1
     - protobuf==4.23.4
@@ -268,6 +269,7 @@ dependencies:
     - watchfiles==0.19.0
     - websockets==11.0.3
     - werkzeug==2.3.6
+    - yarg==0.1.9
     - yarl==1.9.2
     - zipp==3.16.2
     - zstandard==0.21.0
