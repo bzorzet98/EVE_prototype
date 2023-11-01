@@ -44,7 +44,6 @@ from langchain.text_splitter import CharacterTextSplitter
 from users import UserManager
 from functions_auxiliary import *
 
-
 class Chatbot():
     def __init__(self, developer_mode = False, model_finetune = False):
         # User manager
@@ -146,10 +145,8 @@ class Chatbot():
         similar_conversation_holder[0] = similar_conversations
         
     def chat(self, patient_message):
-        
         # Obtain last messages
         last_messages = self.__obtain_n_last_messages_string(n_last_messages=2)
-        
         # Add patient message to memory
         self.__add_user_messages_in_memory(patient_message)
         
