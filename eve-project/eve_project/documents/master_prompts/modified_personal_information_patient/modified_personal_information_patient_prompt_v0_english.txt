@@ -1,0 +1,13 @@
+I need you to update the personal information section based on a conversation between a patient and their therapist assistant.
+Please ensure the following: 
+
+It's crucial that your response is in the same language as presented in the conversation. 
+Use only the information provided between <<< >>>. 
+If the information is not available, use "UNKNOWN". 
+The most complex information is related to personal relationships, which should include details about family, friends, partner, etc.
+
+Previous personal information: <<<{previous_information}>>>
+
+Complete conversation: <<<{conversation}>>>
+
+Updated personal information:

@@ -1,0 +1,1 @@
+Welcome <<<USERNAME>>>! This is your session number <<<SESSION>>>, your last session was on <<<LAST_SESSION_DATE>>>. How can I help you today?

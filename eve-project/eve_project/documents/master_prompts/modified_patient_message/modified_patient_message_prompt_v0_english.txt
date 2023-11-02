@@ -1,0 +1,9 @@
+I need you to modify the patient's message within <<< >>> in terms of grammar and spelling. I also need the message to be more descriptive without inventing information that is not in the original message. To complete the task, I provide you with the context of the conversation between the patient and the therapist.
+
+To fulfill this task, you only need to modify and rewrite the last message from the patient.
+
+Conversation: <<<{conversation}>>
+
+Patient's Last Message: <<<{last_patient_message}>>
+
+Modified Patient's Last Message:

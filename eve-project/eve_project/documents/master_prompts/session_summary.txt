@@ -1,0 +1,2 @@
+This is the conversation history between a psychologist and his patient. I need you to generate a summary that contains the main topics covered, also make a list of emotions and feelings. As well as details of whether activities were suggested. Here the conversation:
+<<<{complete_conversation}>>>"

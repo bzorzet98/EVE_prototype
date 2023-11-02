@@ -1,0 +1,9 @@
+Necesito que modifiques el mensaje del paciente entre <<< >>>, en terminos de grmática y ortografía. También necesito que el mensaje sea más descriptivo, pero sin inventar información que no se encuentre en el mensaje original. Para cumplir con la tarea te doy como contexto la conversación entre el paciente y el terapeuta.
+
+Para cumplir esta tarea solo debes modificar y reescribir el último mensaje del paciente. 
+
+Conversación: <<<{conversation}>>>
+
+Último mensaje del paciente : <<<{last_patient_message}>>>
+
+Último mensaje del paciente modificado:  

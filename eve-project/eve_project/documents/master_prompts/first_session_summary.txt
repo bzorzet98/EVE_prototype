@@ -1,0 +1,17 @@
+You need to generate a new summary that integrates the information from the previous summary and the new lines of conversation.
+
+The summary revolves around a conversation between a therapist and their patient. Therefore, it's crucial to maintain the personal information, feelings expressed by the patient, the reason for the consultation, and any aspect you consider important to help the patient address their issues.
+
+You must adhere to the following rules:
+
+1.You should only use the information provided between <<< >>> and between . You cannot invent something that is not within the <<< >>>.
+2.The language of the new summary needs to respect both the language of the old summary and the new messages.
+3.In the old summary, there's a section called "last messages," which refers to previous messages used to generate that summary. You must not take these lines into account when creating the new summary.
+4.At the end of the summary, you need to update the information in the "last messages" section with the new messages found between .
+5.When updating the information in the "last messages" section, you should not add the  symbols.
+
+Old summary:
+<<<{summary}>>>
+New messages:
+$$${new_lines}$$$
+

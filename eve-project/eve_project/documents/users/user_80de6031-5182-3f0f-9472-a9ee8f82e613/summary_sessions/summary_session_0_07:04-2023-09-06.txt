@@ -1,0 +1,11 @@
+Tema principal de la conversación: El paciente busca ayuda y asesoramiento.
+Tema principal de los últimos 2 mensajes de la conversación: La terapeuta pide al paciente que proporcione más información sobre sí mismo.
+Información proporcionada por el paciente: El paciente pregunta si la terapeuta habla inglés.
+Sentimientos expresados por el paciente: No se mencionan sentimientos específicos.
+Solicitudes expresadas por el paciente: El paciente solicita información sobre si la terapeuta habla inglés.
+Comportamiento del asistente: La terapeuta responde a las preguntas del paciente y le pide más información sobre sí mismo.
+Recomendaciones proporcionadas por el asistente: No se mencionan recomendaciones específicas.
+Metas proporcionadas por el asistente: No se mencionan metas específicas.
+Se han presentado(SI/NO): NO
+Se han saludado(SI/NO): SI
+Pensamientos suicidas(SI/NO): NO

@@ -1,0 +1,44 @@
+Below is a conversation of a therapist with his patient between <<< >>>. Also between [[[[ ]]] is relevant personal information. 
+
+What you have to do is depending on the personal information between [[[[ ]]]] and the conversation <<< >>>; you have to update the information if there is any reference to it in the conversation and unify them. If the information is not available you should put UNKNOWN. The most complicated information is the personal relationships, which should include information about family, friends, partner, etc. The result you must enclose it by $$$$ $$$$. 
+
+For example: 
+
+Personal information: 
+[[[
+NAME: BRUNO
+AGE: 25
+HOBBIES / INTEREST: UNKNOWN
+OCCUPATION: UNKNOWN
+STUDIES: UNKNOWN
+PERSONS WITH WHOM HE/SHE LIVES: Lives with his parents. 
+FAMILY: UNKNOWN
+FRIENDS: UNKNOWN
+PARTNER: UNKNOWN
+ ]]]
+ 
+Conversation: 
+<<<
+Psychologist : Tell me what do you do? 
+Patient: I am a Bioengineer and there I met my girlfriend Noelia, who gets along very well with my 3 older brothers, but I shared a lot of time with Maria my little sister. 
+ >>>
+ 
+Result:
+$$$
+NAME: BRUNO
+AGE: 25
+HOBBIES / INTEREST: UNKNOWN
+OCCUPATION: BIOENGINEER
+STUDIES: UNKNOWN
+PERSONS WITH WHOM HE/SHE LIVES: Lives with his parents. 
+FAMILY: MARY his sister and has 3 brothers. 
+FRIENDS: UNKNOWN
+PARTNER: Noelia is his girlfriend. 
+$$$
+
+It is important that you only use the information provided between <<< >>> to generate the new summary and update the information. 
+Here you have the information:
+Previous personal information: 
+[[[{previous_personal_information}]]]
+Conversation:
+<<<{complete_conversation}>>>

@@ -1,0 +1,11 @@
+Tema principal de la conversación: El paciente busca ayuda para lidiar con el estrés causado por su compañero de oficina.
+Tema principal de los últimos 2 mensajes de la conversación: El paciente solicita consejos sobre cómo comunicarle a su compañero de oficina que ya no quiere brindarle más ayuda.
+Información proporcionada por el paciente: El compañero de oficina del paciente constantemente le pide ayuda, lo cual afecta su propio rendimiento y retrasa el cumplimiento de sus metas.
+Sentimientos expresados por el paciente: Frustración, molestia, estrés.
+Solicitudes expresadas por el paciente: El paciente solicita consejos sobre cómo comunicarle a su compañero de oficina que ya no quiere brindarle más ayuda y ejemplos de cómo debería ser la conversación.
+Comportamiento del asistente: El asistente escucha al paciente, le brinda apoyo emocional y le proporciona recomendaciones sobre cómo abordar la situación con su compañero de oficina.
+Recomendaciones proporcionadas por el asistente: El asistente recomienda que el paciente reflexione sobre sus propias necesidades y límites, busque un momento adecuado para hablar con su compañero de oficina de manera respetuosa y clara, exprese cómo se siente y establezca límites, sugiera que busque otras fuentes de apoyo y recursos, y mantenga una actitud asertiva y abierta al diálogo.
+Metas proporcionadas por el asistente: Ayudar al paciente a encontrar la mejor manera de comunicar sus necesidades a su compañero de oficina y lidiar con la situación estresante en la oficina.
+Se han presentado(SI/NO): No.
+Se han saludado(SI/NO): Sí.
+Pensamientos suicidas(SI/NO): No.

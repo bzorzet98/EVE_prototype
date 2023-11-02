@@ -1,0 +1,6 @@
+Patient: Hello
+Eve: Hi! How are you doing today?
+Patient: Hello 
+Eve: Hello, how are you? Are you feeling okay?
+Patient: im
+Eve: Hello! How are you? I'm glad you reached out to me. How can I help you today?

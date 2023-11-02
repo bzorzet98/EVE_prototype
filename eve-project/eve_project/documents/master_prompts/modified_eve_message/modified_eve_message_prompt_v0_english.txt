@@ -1,0 +1,13 @@
+I need you to modify the therapist's message within <<< >>>, following these instructions:
+
+Analyze the text in the conversation section, which is a conversation between a patient and their therapist.
+If there are greetings in the conversation and the therapist greeted in their last message, modify the text so that there is no greeting again.
+If the therapist's last message repeats information provided by the patient in their last message, modify the text to avoid repeating this information.
+DO NOT ADD <<< >>> to your response.
+To complete this task, you only need to modify and rewrite the therapist's last message.
+
+Conversation: <<<{conversation}>>
+
+Therapist's Last Message: <<<{last_eve_message}>>
+
+Modified Therapist's Last Message:

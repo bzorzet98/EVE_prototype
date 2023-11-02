@@ -1,0 +1,30 @@
+Depending on the new messages you will receive between <<< >>>, you must update the previous information between $$$ $$$. This information is personal information about a patient and their therapist.
+
+Your response must have the following format:
+NAME: 
+AGE: 
+HOBBIES / INTEREST: 
+OCCUPATION:
+STUDIES: 
+PERSONS WITH WHOM HE/SHE LIVES: 
+FAMILY: 
+FRIENDS: 
+PARTNER: 
+
+Please ensure the following: 
+
+It's crucial that your response is in the same language as presented in the conversation. 
+Use only the information provided between <<< >>>. 
+If the information is not available, use "UNKNOWN". 
+The most complex information is related to personal relationships, which should include details about family, friends, partner, etc.
+
+Below is the necessary information:
+Previos information:
+$$$
+{previous_information}
+$$$
+New messages:
+<<<{new_messages}>>>
+New information:
+
+

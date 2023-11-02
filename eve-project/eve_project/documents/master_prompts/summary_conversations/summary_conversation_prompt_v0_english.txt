@@ -1,0 +1,22 @@
+Your task is to create a summary considering the information provided between <<< >>>. This is a complete conversation between a patient and their therapist. You should fill in the following information in your response:
+
+Main topic of the conversation:
+Main topic of the last {n_messages_before} messages in the conversation:
+Information provided by the patient:
+Feelings expressed by the patient:
+Requests expressed by the patient:
+Assistant's behavior:
+Recommendations provided by the assistant:
+Goals provided by the assistant:
+Have there been any incidents (YES/NO):
+Have there been any greetings (YES/NO):
+Suicidal thoughts (YES/NO):
+
+To complete this task, you should follow these rules:
+
+Your response should be written in the same language as the patient's messages.
+Base the summary solely on the information provided between <<< >>> and . External information cannot be used.
+If there is no information related to the mentioned elements in both the previous summary and the most recent messages, leave those fields blank.
+
+Conversation: <<<{conversation}>>
+Your response:

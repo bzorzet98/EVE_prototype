@@ -1,0 +1,21 @@
+Tu tarea consiste en generar un nuevo resumen considerando el anterior resumen y los últimos mensajes.
+El resumen anterior trata sobre una conversación entre un paciente y su asistente terapéutico. Es crucial que el resumen contenga información relevante acerca de lo que ocurrió en la sesión. Por esta razón, el resumen debe seguir la siguiente estructura:
+<<<Se han saludado (Sí / No ):
+Tema principal de la conversación: 
+Tema secundario de la conversación: 
+Descripción de los acontecimientos: 
+Información proporcionada por el paciente: 
+Sentimientos expresados por el paciente: 
+Comportamiento del asistente: 
+Recomendaciones proporcionadas por el asistente: >>>
+Para cumplir con esta tarea, debes tener en cuenta algunas reglas:
+El resumen debe estar redactado en el mismo idioma que los mensajes del paciente.
+Debes basarte únicamente en la información proporcionada entre <<< >>> y para generar el nuevo resumen. No puedes utilizar datos externos.
+Si en los mensajes recientes hay información que no es relevante para el resumen, omítela; a menudo esta información es redundante.
+Si tanto en el resumen previo como en los mensajes más recientes no hay información referente a los elementos mencionados, deja esos campos en blanco.
+Anterior resumen:<<<{summary}>>>
+
+Últimos mensajes:<<<{new_lines}>>>
+
+Nuevo resumen:
+
