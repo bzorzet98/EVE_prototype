@@ -1,6 +1,7 @@
-from langchain.chat_models import ChatOpenAI
 from configurations.config_llm import CAMBALACHE_TEMPERATURE
-
+from langchain.prompts import PromptTemplate 
+from langchain.chains import LLMChain
+from langchain.chat_models import ChatOpenAI
 
 class BaseConversationAnalysis(object):
     """
@@ -58,7 +59,7 @@ class ConversationAnalysis_v1(BaseConversationAnalysis):
 class PersonalInformationUpdater_v1():
     def __init__(self,):
         # Define the personal information
-        self.personal_information = None
+        self.personal_information = ""
         # Define the updater
         self.updater = None
         self.prompt = None
@@ -102,7 +103,7 @@ class PersonalInformationUpdater_v1():
             raise TypeError("conversation must be a string")
         
         # Check that the previous_information is a string
-        if not isinstance(previous_information, str):
+        if not isinstance(self.personal_information, str):
             raise TypeError("previous_information must be a string")
         
         # Obtain the new personal information

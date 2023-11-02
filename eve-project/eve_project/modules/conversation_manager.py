@@ -1,4 +1,5 @@
 from langchain.memory import ChatMessageHistory
+from functions_auxiliary import convert_messages_in_txt
 
 class BaseConversationManager():
     def __init__(self,):
@@ -30,7 +31,7 @@ class ConversationManager_v1(BaseConversationManager):
         if is_ai_message:
             self.memory_current_conversation.add_ai_message(message)
         else:
-            self.memory_current_conversation.add_user_message(message_content)
+            self.memory_current_conversation.add_user_message(message)
     
     def get_conversation(self,):
         return convert_messages_in_txt(self.memory_current_conversation.messages)
