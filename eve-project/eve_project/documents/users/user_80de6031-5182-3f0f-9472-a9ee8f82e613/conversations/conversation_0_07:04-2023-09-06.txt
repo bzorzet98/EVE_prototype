@@ -1,6 +1,0 @@
-Patient: Hello
-Eve: Hola, ¿cómo estás? ¿En qué puedo ayudarte hoy?
-Patient: English do you speak it
-Eve: Sí, hablo inglés. ¿En qué puedo ayudarte hoy? Cuéntame más sobre lo que te preocupa o necesitas asesoramiento. Además, me gustaría conocer un poco más sobre ti. ¿Podrías proporcionarme más información sobre ti, como tus hobbies, ocupación o estudios? Esto me ayudará a entender mejor tu situación y brindarte el apoyo adecuado.
-Patient: are you there 
-Eve: Entiendo que estás buscando ayuda y asesoramiento. Estoy aquí para escucharte y apoyarte en lo que necesites. Si puedes proporcionarme más información sobre ti, como tus hobbies, ocupación o estudios, me ayudará a entender mejor tu situación y brindarte el apoyo adecuado.
