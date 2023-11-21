@@ -32,7 +32,7 @@ PERSONAL_INFORMATION_TEMPLATE_PATH = os.getcwd() + "/" + 'eve_project' + "/" + "
 PROMPTS_PATH = os.getcwd() + "/" + 'eve_project' + "/" + "documents" + "/" + "master_prompts"
 
 
-ENGLISH = True
+ENGLISH = False
 if ENGLISH:
     SUMMARY_CONVERSATION_PROMPT_PATH = PROMPTS_PATH + "/" + "summary_conversations" + "/" + "summary_conversation_prompt_v0_english.txt"
     MODIFIED_PATIENT_MESSAGE_PROMPT_PATH = PROMPTS_PATH + "/" + "modified_patient_message" + "/" + "modified_patient_message_prompt_v0_english.txt"

@@ -9,6 +9,8 @@ from prompt_config import PromptConfig_v1
 from conversation_manager import ConversationManager_v1
 from conversation_analysis import ConversationAnalysis_v1
 from chatbot import Chatbot_v1
+from user_manager import UserManager
+from speech_to_text import S2T_with_whisper
 
 from configurations.config_llm import FT_NAME, CHAT_TEMPERATURE, OPENAI_API_KEY
 from configurations.config_prompts import SUMMARY_CONVERSATION_v1, PERSONAL_INFORMATION_v1, EVE_PROMPT_v1
@@ -41,9 +43,6 @@ class Eve_v1(BaseEve):
         
         # Initialize the chatbot
         self.chatbot = Chatbot_v1()
-        
-        # Initialize
-        self.initialize()
         
         pass
     
@@ -142,4 +141,89 @@ class Eve_v2(Eve_v1):
 
     def _process_summary_conversation(self,last_messages , current_conversation):
         self.conversation_analysis.update_summary_conversation(last_messages , current_conversation)
+    
 
+# These Eve versions save the current conversation and the personal information in the user folder
+class Eve_v3(Eve_v2):
+    def __init__(self,):
+        super().__init__()
+        
+        # User Manager
+        self.user_manager = UserManager()
+        # Login process
+        self.user_manager.user_login()
+    
+        pass
+    
+    def initialize(self,):
+        # Load prompts
+        self.prompt_manager.load_prompts(paths = [SUMMARY_CONVERSATION_v1['path'], PERSONAL_INFORMATION_v1['path'], EVE_PROMPT_v1['path']],
+                                         keys = ['summary_conversation', 'personal_information', 'eve_message'],
+                                         input_variables = [SUMMARY_CONVERSATION_v1['input_variables'], PERSONAL_INFORMATION_v1['input_variables'], EVE_PROMPT_v1['input_variables']])
+        
+        # Load the information requiered for the conversation
+        self.load_personal_information()
+        
+        # Load prompt for the summary conversation
+        self.load_summary_conversation()
+        
+        # Load prompt for the chatbot
+        self.chatbot.load_prompt(prompt = self.prompt_manager.get_prompt('eve_message'))
+    
+    def load_personal_information(self,):
+        # Obtain the personal information from usermanager
+        personal_information = self.user_manager.get_user_information(key='personal_information')
+        #Load the personal information
+        self.conversation_analysis.load_personal_information(personal_information = personal_information)
+        # Load prompt for the personal information
+        self.conversation_analysis.load_prompt_personal_information(prompt = self.prompt_manager.get_prompt('personal_information'))
+        
+    def load_summary_conversation(self,):
+        # Load prompt for the summary conversation
+        self.conversation_analysis.load_prompt_summary_conversation(prompt = self.prompt_manager.get_prompt('summary_conversation'))
+        
+    def finalize(self,):
+        # Message of process information and wait a minute
+        print("Processing the conversation...")
+        # Update the personal information
+        self.user_manager.update_user_information(key='personal_information', value=self.conversation_analysis.get_personal_information())
+        
+        # Save the conversation
+        self.save_conversation()
+        
+        # Save the personal information 
+        self.save_personal_information()
+        
+    def save_conversation(self,):
+        # Obtain the current conversation
+        current_conversation = self.conversation_manager.get_conversation()
+        # Obtain the number of the last session
+        number_session = self.user_manager.get_user_information(key='last_session_number')
+        if number_session is None:
+            number_session = 0
+        number_session+=1
+        # The file name is the current date and time (YYYY/MM/DD)
+        date = datetime.datetime.now().strftime("%Y_%m_%d")
+        filename = f"{number_session}_session_{date}.txt"
+        self.user_manager.save_content(content = current_conversation, 
+                                       folder = 'sessions', 
+                                       filename = filename)
+        
+    def save_personal_information(self,):
+        # Save the personal information
+        self.user_manager.save_user_information()
+
+
+class Eve_v4(Eve_v3):
+    def __init__(self,):
+        super().__init__()
+        self.audio_transcriber = S2T_with_whisper()
+        
+    def response_with_audio(self, input_user, audio_flag=False):
+        # Check if the input is a text or a audio
+        if audio_flag:
+            # If the input is a audio, we process the audio
+            input_user = self.audio_transcriber.transcribe(input_user)
+        # Obtain the response of Eve
+        eve_message = self.response(input_user)
+        return eve_message

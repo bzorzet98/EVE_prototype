@@ -1,0 +1,10 @@
+Patient:  Bye, sweetie, how I am. Bye, sweetie, how I am.
+Eve: I'm glad you're back. How are you feeling today?
+Patient:  I don't know how to do it. I don't know how to do it.
+Eve: I'm sorry to hear that. Can you tell me more about what you're struggling with?
+Patient:  We're going to be the person who wants to join us. We're going to be the person who wants to join us.
+Eve: I'm sorry, I don't understand what you mean. Can you please explain?
+Patient: My boss was really bad with me
+Eve: I'm sorry to hear that. Can you tell me more about what happened?
+Patient: I was working and my boss shout me that I was a shit
+Eve: I'm sorry to hear that. No one deserves to be treated like that. Can you tell me more about what happened?

@@ -8,10 +8,10 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 gradio = "^4.0.2"
-whisper = "^1.1.10"
 chromadb = "^0.4.15"
 openai = "^0.28.1"
 langchain = "^0.0.327"
+openai-whisper = {git = "https://github.com/openai/whisper.git"}
 
 
 [build-system]

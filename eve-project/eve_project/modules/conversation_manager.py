@@ -1,5 +1,5 @@
 from langchain.memory import ChatMessageHistory
-from functions_auxiliary import convert_messages_in_txt
+from functions_auxiliary import convert_messages_in_txt, save_as_txt, read_txt_file
 
 class BaseConversationManager():
     def __init__(self,):
@@ -44,6 +44,7 @@ class ConversationManager_v1(BaseConversationManager):
             # Obtain the last n messages
             messages = self.memory_current_conversation.messages[-n_last_messages:]
         return convert_messages_in_txt(messages)
+    
     
     
     

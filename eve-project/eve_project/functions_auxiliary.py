@@ -45,6 +45,11 @@ def save_as_txt(path, content):
     with open(file_path, 'w') as output_file:
         output_file.write(content)
         
+def read_txt_file(path):
+    file_path  = path 
+    with open(file_path, 'r') as output_file:
+        content = output_file.read()
+    return content
         
 def convert_state_str_to_variables(state_str):
     lineas = state_str.split('\n')

@@ -1,0 +1,2 @@
+Patient: Hi eve, i am bruno, and I am very tires
+Eve: Hi Bruno, nice to meet you! I'm sorry to hear that you're feeling very tired. Can you tell me more about why you're feeling this way?
